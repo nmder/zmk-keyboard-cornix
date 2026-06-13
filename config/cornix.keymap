@@ -263,10 +263,10 @@
             //                |      |       |       |      |      |  |      |      |      |       |      |
 
             bindings = <
-&trans  &kp MINUS            &kp NUMBER_1        &kp NUMBER_2  &kp NUMBER_3       &kp PLUS                      &lsft_vold_mute  &kp C_PREV                 &kp C_PLAY_PAUSE             &kp C_NEXT             &kp C_VOL_UP   &none
-&trans  &hm LCTRL BACKSPACE  &hm LSHFT NUMBER_4  &hm LALT N5   &hm LGUI NUMBER_6  &kp N0                        &kp LEFT_BRACE   &hm LGUI LEFT_PARENTHESIS  &hm RSHFT RIGHT_PARENTHESIS  &hm RCTRL RIGHT_BRACE  &kp BACKSPACE  &none
-&trans  &kp ASTERISK         &kp N7              &kp N8        &kp N9             &kp PERIOD    &trans  &trans  &none            &kp LEFT_BRACKET           &kp RIGHT_BRACKET            &none                  &trans         &trans
-&none   &none                &none               &kp TAB       &kp SLASH          &kp ASTERISK                  &trans           &trans                     &kp N3                       &none                  &none          &none
+&trans  &kp MINUS            &kp NUMBER_1        &kp NUMBER_2  &kp NUMBER_3       &kp PLUS                      &lsft_vold_mute  &kp C_PREV                 &kp C_PLAY_PAUSE            &kp C_NEXT             &kp C_VOL_UP         &none
+&trans  &hm LCTRL BACKSPACE  &hm LSHFT NUMBER_4  &hm LALT N5   &hm LGUI NUMBER_6  &kp N0                        &kp LEFT_BRACE   &hm LGUI LEFT_PARENTHESIS  &hm RALT RIGHT_PARENTHESIS  &hm RSHFT RIGHT_BRACE  &hm RCTRL BACKSPACE  &none
+&trans  &kp ASTERISK         &kp N7              &kp N8        &kp N9             &kp PERIOD    &trans  &trans  &none            &kp LEFT_BRACKET           &kp RIGHT_BRACKET           &none                  &trans               &trans
+&none   &none                &none               &kp TAB       &kp SLASH          &kp ASTERISK                  &trans           &trans                     &kp N3                      &none                  &none                &none
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
