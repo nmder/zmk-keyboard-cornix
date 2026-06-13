@@ -290,7 +290,7 @@
 
         lbrc {
             bindings = <&kp LEFT_BRACE>;
-            key-positions = <18 20>;
+            key-positions = <18 21>;
             timeout-ms = <25>;
             layers = <0>;
         };
