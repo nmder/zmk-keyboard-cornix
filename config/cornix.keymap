@@ -196,6 +196,16 @@
             timeout-ms = <25>;
             layers = <0>;
         };
+
+        lpar {
+            bindings = <&kp LPAR>;
+            key-positions = <18 20>;
+        };
+
+        rpar {
+            bindings = <&hm RG(RALT) RIGHT_PARENTHESIS>;
+            key-positions = <19 20>;
+        };
     };
 
     keymap {
