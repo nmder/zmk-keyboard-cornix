@@ -189,6 +189,13 @@
             layers = <0>;
             timeout-ms = <40>;
         };
+
+        star {
+            bindings = <&lsft_ast_perc>;
+            key-positions = <20 33>;
+            timeout-ms = <25>;
+            layers = <0>;
+        };
     };
 
     keymap {
