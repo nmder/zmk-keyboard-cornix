@@ -27,6 +27,10 @@ CONFIG_ZMK_SPLIT=y
 
 CONFIG_ZMK_BLE=y
 
+# Deep sleep after 15 minutes of inactivity.
+CONFIG_ZMK_SLEEP=y
+CONFIG_ZMK_IDLE_SLEEP_TIMEOUT=900000
+
 # never output usb
 CONFIG_ZMK_USB=n
 
