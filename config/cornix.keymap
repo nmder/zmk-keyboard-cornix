@@ -320,7 +320,7 @@
 &kp TAB  &kp Q          &kp W                 &kp E         &kp R         &kp T                      &kp Y        &kp U          &kp I         &kp O                &kp P             &kp BSLH
 &kp ESC  &hm_l LCTRL A  &hm_shift_l LSHIFT S  &hm_l LALT D  &hm_l LGUI F  &kp G                      &kp H        &hm_r RGUI J   &hm_r RALT K  &hm_shift_r RSHFT L  &hm_r RCTRL SEMI  &kp ENTER
 &mo 3    &kp Z          &kp X                 &kp C         &kp V         &kp B        &none  &none  &kp N        &kp M          &kp COMMA     &kp DOT              &kp FSLH          &kp RSHIFT
-&none    &none          &kp LGUI              &kp LGUI      &lt 2 ESCAPE  &lt 1 SPACE                &lt 1 SPACE  &lt_lsft_bspc  &mo 6         &none                &none             &none
+&none    &none          &kp LGUI              &mo 4         &lt 2 ESCAPE  &lt 1 SPACE                &lt 1 SPACE  &lt_lsft_bspc  &mo 6         &none                &none             &none
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
