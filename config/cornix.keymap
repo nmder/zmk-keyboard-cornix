@@ -78,8 +78,6 @@
             #binding-cells = <2>;
             bindings = <&kp>, <&kp>;
 
-            //flavor = "balanced";
-
             flavor = "balanced";
             tapping-term-ms = <HM_TAPPING_TERM_FAST>;
             quick-tap-ms = <200>;
