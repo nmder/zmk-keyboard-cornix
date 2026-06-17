@@ -52,7 +52,7 @@
             tapping-term-ms = <HM_TAPPING_TERM>;
             quick-tap-ms = <200>;                // repeat on tap-into-hold
             /* require-prior-idle-ms = <HM_PRIOR_IDLE>; */
-            hold-trigger-key-positions = <KEYS_R KEYS_T>;
+            /* hold-trigger-key-positions = <KEYS_R KEYS_T>; */
             /* hold-trigger-on-release; */
         };
 
@@ -65,7 +65,7 @@
             tapping-term-ms = <HM_TAPPING_TERM>;
             quick-tap-ms = <200>;
             /* require-prior-idle-ms = <HM_PRIOR_IDLE>; */
-            hold-trigger-key-positions = <KEYS_L KEYS_T>;
+            /* hold-trigger-key-positions = <KEYS_L KEYS_T>; */
             /* hold-trigger-on-release; */
         };
 
@@ -82,7 +82,7 @@
             tapping-term-ms = <HM_TAPPING_TERM_FAST>;
             quick-tap-ms = <200>;
             /* require-prior-idle-ms = <HM_PRIOR_IDLE>; */
-            hold-trigger-key-positions = <KEYS_R KEYS_T>;
+            /* hold-trigger-key-positions = <KEYS_R KEYS_T>; */
             /* hold-trigger-on-release; */
         };
 
@@ -95,7 +95,7 @@
             tapping-term-ms = <HM_TAPPING_TERM_FAST>;
             quick-tap-ms = <200>;
             /* require-prior-idle-ms = <HM_PRIOR_IDLE>; */
-            hold-trigger-key-positions = <KEYS_L KEYS_T>;
+            /* hold-trigger-key-positions = <KEYS_L KEYS_T>; */
 
             // for quick tapping; shift+~
 
