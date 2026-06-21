@@ -313,6 +313,12 @@ projects:
     revision: main
 ```
 
+## Build This Project Locally
+
+See [LOCAL_BUILD.md](./LOCAL_BUILD.md) for the locally verified build commands.
+
+Note: the older `ZMK_EXTRA_MODULES` method below may fail in this repository with a recursive `Kconfig.zephyr` error after dependencies are checked out. The verified local process uses `BOARD_ROOT`, `SHIELD_ROOT`, and `SNIPPET_ROOT` instead.
+
 ## Build This Project Locally (Without west.yaml Dependency)
 
 If you prefer to build this project locally without adding it as a dependency in your west.yaml, you can use the ZMK_EXTRA_MODULES cmake argument.
