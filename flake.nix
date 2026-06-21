@@ -91,25 +91,27 @@
               target="''${1:-all}"
 
               build_left() {
-                west build -s zmk/app -d build/cornix_left \
+                west build -p always -s zmk/app -d build/cornix_left \
                   -b cornix_left -- \
                   -DZMK_CONFIG="$PWD/config" \
                   -DBOARD_ROOT="$PWD" \
                   -DSHIELD_ROOT="$PWD" \
-                  -DSNIPPET_ROOT="$PWD"
+                  -DSNIPPET_ROOT="$PWD" \
+                  -DSHIELD=cornix_indicator
               }
 
               build_right() {
-                west build -s zmk/app -d build/cornix_right \
+                west build -p always -s zmk/app -d build/cornix_right \
                   -b cornix_right -- \
                   -DZMK_CONFIG="$PWD/config" \
                   -DBOARD_ROOT="$PWD" \
                   -DSHIELD_ROOT="$PWD" \
-                  -DSNIPPET_ROOT="$PWD"
+                  -DSNIPPET_ROOT="$PWD" \
+                  -DSHIELD=cornix_indicator
               }
 
               build_reset() {
-                west build -s zmk/app -d build/cornix_reset \
+                west build -p always -s zmk/app -d build/cornix_reset \
                   -b cornix_right \
                   -S studio-rpc-usb-uart \
                   -S nrf52840-nosd -- \
@@ -144,14 +146,14 @@
                   build_reset
                   collect_artifacts
                   ;;
-                all|default|no-dongle)
+                all|default|no-dongle|led)
                   build_left
                   build_right
                   build_reset
                   collect_artifacts
                   ;;
                 *)
-                  echo "Usage: cornix-build [all|left|right|reset]" >&2
+                  echo "Usage: cornix-build [all|led|left|right|reset]" >&2
                   exit 2
                   ;;
               esac
