@@ -155,6 +155,42 @@
             '';
           };
 
+          cornix-clean = pkgs.writeShellApplication {
+            name = "cornix-clean";
+            runtimeInputs = with pkgs; [ coreutils findutils ];
+            text = ''
+              set -euo pipefail
+
+              if [[ ! -f config/west.yml ]]; then
+                echo "Run this from the zmk-keyboard-cornix repository root." >&2
+                exit 1
+              fi
+
+              target="''${1:-build}"
+
+              case "$target" in
+                build)
+                  rm -rf build firmware
+                  ;;
+                rgbled|zmk-rgbled-widget)
+                  rm -rf zmk-rgbled-widget
+                  ;;
+                deps|west-deps)
+                  rm -rf zmk zmk-helpers zmk-rgbled-widget zmk-dongle-display modules optional
+                  find . -path '*/.git/index.lock' -delete 2>/dev/null || true
+                  ;;
+                all)
+                  rm -rf build firmware zmk zmk-helpers zmk-rgbled-widget zmk-dongle-display modules optional
+                  find . -path '*/.git/index.lock' -delete 2>/dev/null || true
+                  ;;
+                *)
+                  echo "Usage: cornix-clean [build|rgbled|deps|all]" >&2
+                  exit 2
+                  ;;
+              esac
+            '';
+          };
+
           default = cornix-build;
         });
 
@@ -166,6 +202,10 @@
         build = {
           type = "app";
           program = "${self.packages.${system}.cornix-build}/bin/cornix-build";
+        };
+        clean = {
+          type = "app";
+          program = "${self.packages.${system}.cornix-clean}/bin/cornix-clean";
         };
         default = {
           type = "app";
