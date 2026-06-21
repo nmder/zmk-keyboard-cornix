@@ -67,6 +67,7 @@
     };
 
     chosen {
+        // from https://github.com/hitsmaxft/zmk-keyboard-cornix/pull/32/changes
         zmk,battery = &vbatt;
     };
 
