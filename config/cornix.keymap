@@ -289,7 +289,7 @@
 
         underscore {
             bindings = <&kp UNDER>;
-            key-positions = <35 33>;
+            key-positions = <21 22>;
             timeout-ms = <25>;
             layers = <0>;
         };
