@@ -193,7 +193,7 @@
             bindings = <&lsft_ast_perc>;
             key-positions = <20 33>;
             timeout-ms = <25>;
-            layers = <0>;
+            layers = <0 2>;
         };
 
         lpar {
@@ -214,14 +214,14 @@
             bindings = <&kp MINUS>;
             key-positions = <33 34>;
             timeout-ms = <25>;
-            layers = <0>;
+            layers = <0 2>;
         };
 
         plus {
             bindings = <&kp PLUS>;
             key-positions = <34 35>;
             timeout-ms = <25>;
-            layers = <0>;
+            layers = <0 2>;
         };
 
         equal {
@@ -288,7 +288,7 @@
         };
 
         underscore {
-            bindings = <&kp UNDER>;
+            bindings = <&hm RC(RSHIFT) UNDER>;
             key-positions = <21 22>;
             timeout-ms = <25>;
             layers = <0>;
