@@ -28,6 +28,7 @@
           zephyr = zephyr-nix.packages.${system};
           zephyrPyEnv = zephyr-nix.packages.${system}.pythonEnv;
           zephyrSdk = zephyr.sdk-0_16.override { targets = [ "arm-zephyr-eabi" ]; };
+          pythonProtobuf = pkgs.python312Packages.protobuf;
 
           commonRuntimeInputs = with pkgs; [
             git
@@ -38,6 +39,7 @@
             cmake
             dtc
             ninja
+            protobuf
             zephyrPyEnv
             zephyrSdk
           ];
@@ -84,6 +86,7 @@
 
               export ZEPHYR_TOOLCHAIN_VARIANT=zephyr
               export ZEPHYR_SDK_INSTALL_DIR=${zephyrSdk}
+              export PYTHONPATH="${pythonProtobuf}/${pkgs.python312.sitePackages}:''${PYTHONPATH:-}"
 
               target="''${1:-all}"
 
@@ -155,6 +158,80 @@
             '';
           };
 
+          cornix-firmware = pkgs.stdenvNoCC.mkDerivation {
+            pname = "cornix-firmware";
+            version = "unstable";
+            src = self;
+
+            nativeBuildInputs = commonRuntimeInputs;
+
+            # This package intentionally performs the same west workspace fetches
+            # as the GitHub Actions build. The manifest currently tracks moving
+            # branches, so this is a local-build convenience rather than a fully
+            # fixed-output/reproducible Nix package.
+            __noChroot = true;
+
+            dontConfigure = true;
+            dontFixup = true;
+
+            buildPhase = ''
+              runHook preBuild
+
+              export HOME="$TMPDIR/home"
+              export XDG_CACHE_HOME="$TMPDIR/cache"
+              mkdir -p "$HOME" "$XDG_CACHE_HOME"
+
+              export ZEPHYR_TOOLCHAIN_VARIANT=zephyr
+              export ZEPHYR_SDK_INSTALL_DIR=${zephyrSdk}
+              export PYTHONPATH="${pythonProtobuf}/${pkgs.python312.sitePackages}:''${PYTHONPATH:-}"
+              export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
+              export GIT_SSL_CAINFO="$SSL_CERT_FILE"
+
+              west init -l config
+              west update --fetch-opt=--filter=blob:none
+              west zephyr-export
+
+              west build -p always -s zmk/app -d build/cornix_left \
+                -b cornix_left -- \
+                -DZMK_CONFIG="$PWD/config" \
+                -DBOARD_ROOT="$PWD" \
+                -DSHIELD_ROOT="$PWD" \
+                -DSNIPPET_ROOT="$PWD" \
+                -DSHIELD=cornix_indicator
+
+              west build -p always -s zmk/app -d build/cornix_right \
+                -b cornix_right -- \
+                -DZMK_CONFIG="$PWD/config" \
+                -DBOARD_ROOT="$PWD" \
+                -DSHIELD_ROOT="$PWD" \
+                -DSNIPPET_ROOT="$PWD" \
+                -DSHIELD=cornix_indicator
+
+              west build -p always -s zmk/app -d build/cornix_reset \
+                -b cornix_right \
+                -S studio-rpc-usb-uart \
+                -S nrf52840-nosd -- \
+                -DZMK_CONFIG="$PWD/config" \
+                -DBOARD_ROOT="$PWD" \
+                -DSHIELD_ROOT="$PWD" \
+                -DSNIPPET_ROOT="$PWD" \
+                -DSHIELD=settings_reset
+
+              runHook postBuild
+            '';
+
+            installPhase = ''
+              runHook preInstall
+
+              mkdir -p "$out"
+              cp build/cornix_left/zephyr/zmk.uf2 "$out/cornix_left_default_nosd.uf2"
+              cp build/cornix_right/zephyr/zmk.uf2 "$out/cornix_right_nosd.uf2"
+              cp build/cornix_reset/zephyr/zmk.uf2 "$out/cornix_reset.uf2"
+
+              runHook postInstall
+            '';
+          };
+
           cornix-clean = pkgs.writeShellApplication {
             name = "cornix-clean";
             runtimeInputs = with pkgs; [ coreutils findutils ];
@@ -191,7 +268,7 @@
             '';
           };
 
-          default = cornix-build;
+          default = cornix-firmware;
         });
 
       apps = forAllSystems (system: {

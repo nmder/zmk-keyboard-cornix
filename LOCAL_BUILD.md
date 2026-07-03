@@ -12,24 +12,34 @@ This repository now provides flake apps for repeatable local builds. From the re
 # Initialize or update the west workspace/dependencies
 nix run .#init
 
-# Build left, right, and reset UF2s, then copy them into firmware/
+# Standard Nix build: fetch the west workspace, compile all default UF2s,
+# and expose them under ./result/
+nix build
+
+# Working-tree helper: build left, right, and reset UF2s, then copy them into firmware/
 nix run .#build
 
-# Or build only one target
+# Or build only one target with the working-tree helper
 nix run .#build -- left
 nix run .#build -- right
 nix run .#build -- reset
 ```
 
-Outputs are copied to:
+`nix build` outputs are exposed at:
+
+```text
+result/cornix_left_default_nosd.uf2
+result/cornix_right_nosd.uf2
+result/cornix_reset.uf2
+```
+
+`nix run .#build` outputs are copied to:
 
 ```text
 firmware/cornix_left_default_nosd.uf2
 firmware/cornix_right_nosd.uf2
 firmware/cornix_reset.uf2
 ```
-
-`nix build` builds the helper script itself; use `nix run .#build` to actually compile firmware in the working tree.
 
 ## 1. Manual: initialize/update the west workspace
 
