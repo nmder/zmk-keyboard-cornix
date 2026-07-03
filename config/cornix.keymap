@@ -240,7 +240,7 @@
 
         rbkt {
             bindings = <&kp RIGHT_BRACKET>;
-            key-positions = <20 35>;
+            key-positions = <19 35>;
             layers = <0>;
             timeout-ms = <30>;
         };
