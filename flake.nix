@@ -3,11 +3,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # This pins requirements.txt provided by zephyr-nix.pythonEnv.
-    zephyr.url = "github:zephyrproject-rtos/zephyr/v3.7.0";
+    zephyr.url = "github:zmkfirmware/zephyr/v4.1.0+zmk-fixes";
     zephyr.flake = false;
 
     # Zephyr sdk and toolchain.
-    zephyr-nix.url = "github:urob/zephyr-nix";
+    zephyr-nix.url = "github:urob/zephyr-nix/dev";
     zephyr-nix.inputs.zephyr.follows = "zephyr";
     zephyr-nix.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -27,7 +27,7 @@
           pkgs = nixpkgs.legacyPackages.${system};
           zephyr = zephyr-nix.packages.${system};
           zephyrPyEnv = zephyr-nix.packages.${system}.pythonEnv;
-          zephyrSdk = zephyr.sdk-0_16.override { targets = [ "arm-zephyr-eabi" ]; };
+          zephyrSdk = zephyr.sdk-0_17.override { targets = [ "arm-zephyr-eabi" ]; };
           pythonProtobuf = pkgs.python312Packages.protobuf;
 
           commonRuntimeInputs = with pkgs; [
@@ -297,7 +297,7 @@
           pkgs = nixpkgs.legacyPackages.${system};
           zephyr = zephyr-nix.packages.${system};
           zephyrPyEnv = zephyr-nix.packages.${system}.pythonEnv;
-          zephyrSdk = zephyr.sdk-0_16.override { targets = [ "arm-zephyr-eabi" ]; };
+          zephyrSdk = zephyr.sdk-0_17.override { targets = [ "arm-zephyr-eabi" ]; };
           keymap_drawer = keymap_drawer-nix.packages.${system}.default;
         in {
           default = pkgs.mkShellNoCC {
